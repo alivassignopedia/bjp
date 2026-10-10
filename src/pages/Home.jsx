@@ -276,6 +276,15 @@ const AnimationStyles = () => (
       -webkit-text-fill-color: transparent;
       animation: textGradient 6s ease infinite;
     }
+    @media (max-width: 767.98px) {
+      .home-hero-content {
+        padding-top: 125px !important;
+      }
+      .home-hero-flag svg {
+        width: 54px;
+        height: 36px;
+      }
+    }
     .animated-saffron-text {
       background: linear-gradient(90deg, #ff6a00, #ff9e00, #d95500, #ff6a00);
       background-size: 200% auto;
@@ -735,7 +744,7 @@ export default function Home() {
 
         {/* ===== পতাকা — একদম উপরে, পেজের শীর্ষে ===== */}
         <div
-          className="position-absolute top-0 start-50 translate-middle-x d-flex flex-column align-items-center"
+          className="home-hero-flag position-absolute top-0 start-50 translate-middle-x d-flex flex-column align-items-center"
           style={{
             zIndex: 4,
             paddingTop: 18,
@@ -759,7 +768,7 @@ export default function Home() {
         </div>
 
         <div
-          className="container position-relative py-5"
+          className="home-hero-content container position-relative py-5"
           style={{ zIndex: 2, paddingTop: 96, paddingBottom: 110 }}
         >
           <div className="row align-items-center g-4">

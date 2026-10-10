@@ -20,7 +20,11 @@ const infoCards = [
 ]
 
 const subjects = [
-  'Complaint (road, water, light, drainage)',
+  'Complaint - Road',
+  'Complaint - Drinking water',
+  'Complaint - Street light',
+  'Complaint - Drainage',
+  'Complaint - Other',
   'Government scheme information',
   'Health camp',
   'Volunteer registration',
@@ -142,12 +146,19 @@ function Field({ label, error, as = 'input', children, ...props }) {
 /* ---------- page ---------- */
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', phone: '', subject: subjects[0], msg: '' })
+  const complaintRequested = new URLSearchParams(window.location.search).get('subject') === 'complaint'
+  const [form, setForm] = useState({ name: '', ward: '', phone: '', subject: subjects[0], msg: '' })
   const [errors, setErrors] = useState({})
   const [sent, setSent] = useState(false)
   const [btnHover, setBtnHover] = useState(false)
   const [mapBtnHover, setMapBtnHover] = useState(false)
   const [bounce, setBounce] = useState(false)
+
+  useEffect(() => {
+    if (window.location.hash === '#form') {
+      requestAnimationFrame(() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+    }
+  }, [])
 
   // bouncing pin on the map placeholder
   useEffect(() => {
@@ -164,8 +175,9 @@ export default function Contact() {
   const validate = () => {
     const er = {}
     if (!form.name.trim()) er.name = 'Please enter your name.'
-    if (form.phone.trim() && !/^\d{10}$/.test(form.phone.trim()))
-      er.phone = 'Enter a 10-digit phone number, or leave it empty.'
+    if (!form.ward.trim()) er.ward = 'Please enter your ward number.'
+    if (!/^\d{10}$/.test(form.phone.trim()))
+      er.phone = 'Enter a valid 10-digit phone number.'
     if (!form.msg.trim()) er.msg = 'Please write your message.'
     return er
   }
@@ -175,11 +187,11 @@ export default function Contact() {
     setErrors(er)
     if (Object.keys(er).length) return
     const text = encodeURIComponent(
-      `Name: ${form.name}\nPhone: ${form.phone || '-'}\nSubject: ${form.subject}\nMessage: ${form.msg}`
+      `Name: ${form.name}\nWard No.: ${form.ward}\nPhone: ${form.phone}\nComplaint: ${form.subject}\nDetails: ${form.msg}`
     )
     window.open(`https://wa.me/91${PHONE}?text=${text}`, '_blank')
     setSent(true)
-    setForm({ name: '', phone: '', subject: subjects[0], msg: '' })
+    setForm({ name: '', ward: '', phone: '', subject: subjects[0], msg: '' })
   }
 
   return (
@@ -204,7 +216,7 @@ export default function Contact() {
       {/* ===== Form + map ===== */}
       <section className="py-5 mt-4">
         <div className="container py-4">
-          <SectionTitle>Send Us a Message</SectionTitle>
+          <SectionTitle>{complaintRequested ? 'Submit a Complaint' : 'Send Us a Message'}</SectionTitle>
 
           <div className="row g-4">
             {/* Form */}
@@ -212,11 +224,11 @@ export default function Contact() {
               <div
                 id="form"
                 className="p-4 p-md-5 h-100"
-                style={{ background: '#fff', borderRadius: 20, boxShadow: '0 12px 40px rgba(15,31,61,.1)' }}
+                style={{ background: '#fff', borderRadius: 20, boxShadow: '0 12px 40px rgba(15,31,61,.1)', scrollMarginTop: 100 }}
               >
-                <h5 className="fw-bold mb-1" style={{ color: C.navy }}>Tell us how we can help</h5>
+                <h5 className="fw-bold mb-1" style={{ color: C.navy }}>{complaintRequested ? 'Complaint Desk' : 'Tell us how we can help'}</h5>
                 <p className="text-secondary small mb-4">
-                  Your message opens in WhatsApp so it reaches the office directly.
+                  Your details open in WhatsApp so the ward office can receive your complaint.
                 </p>
 
                 {sent && (
@@ -238,17 +250,20 @@ export default function Contact() {
                     <Field label="Your Name" name="name" value={form.name} onChange={change} error={errors.name} placeholder="Full name" />
                   </div>
                   <div className="col-12 col-md-6">
-                    <Field label="Phone Number" name="phone" type="tel" value={form.phone} onChange={change} error={errors.phone} placeholder="10-digit number (optional)" />
+                    <Field label="Ward Number" name="ward" value={form.ward} onChange={change} error={errors.ward} placeholder="Your ward number" required />
+                  </div>
+                  <div className="col-12 col-md-6">
+                    <Field label="Phone Number" name="phone" type="tel" value={form.phone} onChange={change} error={errors.phone} placeholder="10-digit number" required />
                   </div>
                 </div>
 
-                <Field label="Subject" as="select" name="subject" value={form.subject} onChange={change}>
+                <Field label="Which complaint?" as="select" name="subject" value={form.subject} onChange={change}>
                   {subjects.map((s) => (
                     <option key={s} value={s}>{s}</option>
                   ))}
                 </Field>
 
-                <Field label="Message" as="textarea" rows="5" name="msg" value={form.msg} onChange={change} error={errors.msg} placeholder="Write your problem or message..." />
+                <Field label="Complaint Details" as="textarea" rows="5" name="msg" value={form.msg} onChange={change} error={errors.msg} placeholder="Describe the problem and its location..." required />
 
                 <button
                   type="button"

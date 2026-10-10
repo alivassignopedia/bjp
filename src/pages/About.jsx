@@ -483,6 +483,25 @@ export default function About() {
                 delay={(index % 3) * 0.1}
                 className="col-12 col-md-6 col-lg-4"
               >
+                {index === 0 ? (
+                  <Link to="/contact?subject=complaint#form" className="d-block h-100 text-decoration-none" style={{ color: 'inherit' }}>
+                    <HoverCard lift={8}>
+                      {(active) => (
+                        <div className="p-4 h-100">
+                          <div className="d-flex align-items-start gap-3">
+                            <IconBox icon={service.icon} active={active} size={60} />
+                            <div className="flex-grow-1">
+                              <span className="d-inline-block rounded-pill px-2 py-1 mb-2" style={{ background: '#edf7ed', color: C.green, fontSize: 11, fontWeight: 700 }}>{service.tag}</span>
+                              <h6 className="fw-bold mb-2" style={{ color: C.navy, lineHeight: 1.6 }}>{service.t}</h6>
+                            </div>
+                          </div>
+                          <p className="text-secondary mt-3 mb-0" style={{ lineHeight: 1.85 }}>{service.d}</p>
+                          <div className="mt-3 fw-bold" style={{ color: C.saffron, fontSize: 13, opacity: active ? 1 : 0.8, transition: 'opacity .3s ease' }}>মানুষের সেবায় এগিয়ে আসুন →</div>
+                        </div>
+                      )}
+                    </HoverCard>
+                  </Link>
+                ) : (
                 <HoverCard lift={8}>
                   {(active) => (
                     <div className="p-4 h-100">
@@ -536,6 +555,7 @@ export default function About() {
                     </div>
                   )}
                 </HoverCard>
+                )}
               </Reveal>
             ))}
           </div>

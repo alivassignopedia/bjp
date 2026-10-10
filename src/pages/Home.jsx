@@ -993,8 +993,21 @@ export default function Home() {
                 delay={(i % 3) * 0.12}
                 className="col-12 col-md-6 col-lg-4"
               >
-                <HoverCard>
-                  {(h) => (
+                {i === 0 ? (
+                  <Link to="/contact?subject=complaint#form" className="d-block h-100 text-decoration-none" style={{ color: 'inherit' }}>
+                    <HoverCard>
+                      {(h) => (
+                        <div className="p-4 h-100">
+                          <div className="mb-3"><IconBox icon={s.icon} h={h} size={64} /></div>
+                          <h5 className="fw-bold mb-2" style={{ color: C.navy }}>{s.t}</h5>
+                          <p className="mb-0 text-secondary" style={{ lineHeight: 1.8 }}>{s.d}</p>
+                        </div>
+                      )}
+                    </HoverCard>
+                  </Link>
+                ) : (
+                  <HoverCard>
+                    {(h) => (
                     <div className="p-4">
                       <div className="mb-3">
                         <IconBox icon={s.icon} h={h} size={64} />
@@ -1008,8 +1021,9 @@ export default function Home() {
                         {s.d}
                       </p>
                     </div>
-                  )}
-                </HoverCard>
+                    )}
+                  </HoverCard>
+                )}
               </Reveal>
             ))}
           </div>

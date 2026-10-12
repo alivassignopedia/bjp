@@ -9,7 +9,7 @@ const C = {
   navy: '#0f1f3d',
 }
 
-const PHONE = '8240696947'
+const PHONE = '7980705054'
 const BANNER = new URL('../assets/images/banner.jpg', import.meta.url).href
 
 /* ---------- অ্যানিমেটেড ব্যাকগ্রাউন্ড ক্যানভাস ও পার্টিকেল ---------- */
@@ -305,7 +305,7 @@ const contactCards = [
     external: true,
   },
   { icon: '📍', title: 'আমাদের ঠিকানা', text: '৭ নং ওয়ার্ড পার্টি অফিস', to: '/contact' },
-  { icon: '🕒', title: 'অফিসের সময়', text: 'সকাল ১০টা – সন্ধ্যা ৭টা', to: '/contact' },
+  { icon: '🕒', title: 'অফিসের সময়', text: 'সন্ধ্যা ৬:৩০ – রাত ১০:৩০', to: '/contact' },
 ]
 
 const points = [
@@ -994,7 +994,7 @@ export default function Home() {
                 className="col-12 col-md-6 col-lg-4"
               >
                 {i === 0 ? (
-                  <Link to="/contact?subject=complaint#form" className="d-block h-100 text-decoration-none" style={{ color: 'inherit' }}>
+                  <Link to="/complain" className="d-block h-100 text-decoration-none" style={{ color: 'inherit' }}>
                     <HoverCard>
                       {(h) => (
                         <div className="p-4 h-100">

@@ -8,7 +8,7 @@ const C = {
   navy: '#0f1f3d',
   navyDark: '#0a1530',
 }
-const PHONE = '8240696947'
+const PHONE = '7980705054'
 
 const quickLinks = [
   { to: '/', label: 'Home' },
@@ -291,13 +291,13 @@ export default function Footer() {
           {/* Contact */}
           <div className="col-12 col-lg-3" style={reveal(0.4)}>
             <ColumnHeading>Contact</ColumnHeading>
-            <ContactRow icon="📍">7 No Ward Party Office<br />(Your full address here)</ContactRow>
+            <ContactRow icon="📍">28, Nalta Mahajati Rd, Nalta, Rajbari, Dum Dum, Kolkata, West Bengal 700028</ContactRow>
             <ContactRow icon="📞">
               <a href={`tel:+91${PHONE}`} className="text-decoration-none" style={{ color: '#fff', fontWeight: 600 }}>
                 {PHONE}
               </a>
             </ContactRow>
-            <ContactRow icon="🕒">Open: 10 AM – 7 PM</ContactRow>
+            <ContactRow icon="🕒">Open: 6:30 PM – 10:30 PM</ContactRow>
             <div className="d-flex flex-wrap gap-2 mt-2">
               <a
                 href={`tel:+91${PHONE}`}

@@ -484,7 +484,7 @@ export default function About() {
                 className="col-12 col-md-6 col-lg-4"
               >
                 {index === 0 ? (
-                  <Link to="/contact?subject=complaint#form" className="d-block h-100 text-decoration-none" style={{ color: 'inherit' }}>
+                  <Link to="/complain" className="d-block h-100 text-decoration-none" style={{ color: 'inherit' }}>
                     <HoverCard lift={8}>
                       {(active) => (
                         <div className="p-4 h-100">

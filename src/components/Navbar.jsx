@@ -7,7 +7,7 @@ const C = {
   green: '#138808',
   navy: '#0f1f3d',
 }
-const PHONE = '8240696947'
+const PHONE = '7980705054'
 
 function NavItem({ to, end, children }) {
   const [hover, setHover] = useState(false)
@@ -47,6 +47,40 @@ function NavItem({ to, end, children }) {
         )}
       </NavLink>
     </li>
+  )
+}
+
+function ComplaintButton() {
+  const [hover, setHover] = useState(false)
+  return (
+    <NavLink
+      to="/complain"
+      className="btn rounded-pill fw-bold d-inline-flex align-items-center justify-content-center gap-2 px-4"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={({ isActive }) => {
+        const on = isActive || hover
+        return {
+          background: on ? C.saffron : 'transparent',
+          color: on ? '#fff' : C.saffron,
+          border: `2px solid ${C.saffron}`,
+          transform: hover ? 'translateY(-3px)' : 'none',
+          boxShadow: hover ? '0 10px 22px rgba(255,106,0,.35)' : 'none',
+          transition: 'all .3s ease',
+        }
+      }}
+    >
+      <span
+        style={{
+          display: 'inline-block',
+          transform: hover ? 'rotate(-12deg) scale(1.15)' : 'none',
+          transition: 'transform .3s ease',
+        }}
+      >
+        📝
+      </span>
+      অভিযোগ জানান
+    </NavLink>
   )
 }
 
@@ -90,7 +124,7 @@ export default function Navbar() {
         zIndex: 1030,
       }}
     >
-      <nav className="navbar navbar-expand-md py-2">
+      <nav className="navbar navbar-expand-lg py-2">
         <div className="container">
           {/* Brand */}
           <NavLink
@@ -134,40 +168,44 @@ export default function Navbar() {
 
           {/* Links */}
           <div className={`collapse navbar-collapse ${open ? 'show' : ''}`}>
-            <ul className="navbar-nav mx-auto gap-md-3 align-items-md-center pt-3 pt-md-0">
+            <ul className="navbar-nav mx-auto gap-lg-3 align-items-lg-center pt-3 pt-lg-0">
               <NavItem to="/" end>Home</NavItem>
               <NavItem to="/about">About</NavItem>
               <NavItem to="/events">Events</NavItem>
               <NavItem to="/contact">Contact</NavItem>
             </ul>
 
-            <a
-              href={`tel:+91${PHONE}`}
-              className="btn rounded-pill fw-bold d-inline-flex align-items-center gap-2 mt-3 mt-md-0 px-4"
-              onMouseEnter={() => setBtnHover(true)}
-              onMouseLeave={() => setBtnHover(false)}
-              style={{
-                background: btnHover ? C.saffronDark : C.saffron,
-                color: '#fff',
-                border: 0,
-                transform: btnHover ? 'translateY(-3px)' : 'translateY(0)',
-                boxShadow: btnHover
-                  ? '0 10px 22px rgba(255,106,0,.45)'
-                  : '0 4px 12px rgba(255,106,0,.25)',
-                transition: 'all .3s ease',
-              }}
-            >
-              <span
+            <div className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-2 gap-lg-3 mt-3 mt-lg-0">
+              <ComplaintButton />
+
+              <a
+                href={`tel:+91${PHONE}`}
+                className="btn rounded-pill fw-bold d-inline-flex align-items-center justify-content-center gap-2 px-4"
+                onMouseEnter={() => setBtnHover(true)}
+                onMouseLeave={() => setBtnHover(false)}
                 style={{
-                  display: 'inline-block',
-                  transform: btnHover ? 'rotate(-15deg) scale(1.15)' : 'rotate(0)',
-                  transition: 'transform .3s ease',
+                  background: btnHover ? C.saffronDark : C.saffron,
+                  color: '#fff',
+                  border: 0,
+                  transform: btnHover ? 'translateY(-3px)' : 'translateY(0)',
+                  boxShadow: btnHover
+                    ? '0 10px 22px rgba(255,106,0,.45)'
+                    : '0 4px 12px rgba(255,106,0,.25)',
+                  transition: 'all .3s ease',
                 }}
               >
-                📞
-              </span>
-              {PHONE}
-            </a>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    transform: btnHover ? 'rotate(-15deg) scale(1.15)' : 'rotate(0)',
+                    transition: 'transform .3s ease',
+                  }}
+                >
+                  📞
+                </span>
+                {PHONE}
+              </a>
+            </div>
           </div>
         </div>
       </nav>
